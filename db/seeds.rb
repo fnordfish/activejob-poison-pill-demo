@@ -5,4 +5,4 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-TestJob.perform_later
+TestJob.perform_later("🤷".force_encoding("UTF-8"))
