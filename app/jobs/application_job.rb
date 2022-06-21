@@ -1,11 +1,7 @@
 class ApplicationJob < ActiveJob::Base
-  # Those have no effect on Exceptions thrown in Queue Adapters
-  discard_on Encoding::UndefinedConversionError
-  retry_on Exception
+  # Thid has no effect on Exceptions thrown in Queue Adapters
+  discard_on Encoding::CompatibilityError
   
-  # Automatically retry jobs that encountered a deadlock
-  # retry_on ActiveRecord::Deadlocked
-
-  # Most jobs are safe to ignore if the underlying records are no longer available
-  # discard_on ActiveJob::DeserializationError
-end
+  # this will eventually bubble up into the Adapter (when retries exhausted?)
+  retry_on Exception, wait: 1.second
+  end
