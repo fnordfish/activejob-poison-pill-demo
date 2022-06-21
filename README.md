@@ -1,6 +1,6 @@
 # README
 
-Demo Active Job worker crash when a Job causes an Exception in a Queue Adapter.
+Demo Active Job worker crash when a Job changes it's argument to sqlite3 incompatible encoding.
 
 1. `bundle install`
 2. `bin/rails db:migrate`
@@ -17,24 +17,64 @@ $ bin/rails --trace jobs:work
 ** Execute environment
 ** Execute jobs:environment_options
 ** Execute jobs:work
-[Worker(host:host pid:20391)] Starting job worker
-[Worker(host:host pid:20391)] Job TestJob [728919de-bfcc-49bf-94e9-72d6a26faca6] from DelayedJob(default) with arguments: ["🤷"] (id=30) (queue=default) RUNNING
-[Worker(host:host pid:20391)] Job TestJob [728919de-bfcc-49bf-94e9-72d6a26faca6] from DelayedJob(default) with arguments: ["🤷"] (id=30) (queue=default) COMPLETED after 0.0140
-[Worker(host:host pid:20391)] 1 jobs processed at 32.6137 j/s, 0 failed
-[Worker(host:host pid:20391)] Job TestJob [728919de-bfcc-49bf-94e9-72d6a26faca6] from DelayedJob(default) with arguments: ["🤷"] (id=31) (queue=default) RUNNING
-[Worker(host:host pid:20391)] Job TestJob [728919de-bfcc-49bf-94e9-72d6a26faca6] from DelayedJob(default) with arguments: ["🤷"] (id=31) (queue=default) COMPLETED after 0.0099
-[Worker(host:host pid:20391)] 1 jobs processed at 58.2785 j/s, 0 failed
-[Worker(host:host pid:20391)] Job TestJob [728919de-bfcc-49bf-94e9-72d6a26faca6] from DelayedJob(default) with arguments: ["🤷"] (id=32) (queue=default) RUNNING
-[Worker(host:host pid:20391)] Job TestJob [728919de-bfcc-49bf-94e9-72d6a26faca6] from DelayedJob(default) with arguments: ["🤷"] (id=32) (queue=default) COMPLETED after 0.0103
-[Worker(host:host pid:20391)] 1 jobs processed at 58.9484 j/s, 0 failed
-[Worker(host:host pid:20391)] Job TestJob [728919de-bfcc-49bf-94e9-72d6a26faca6] from DelayedJob(default) with arguments: ["🤷"] (id=33) (queue=default) RUNNING
-[Worker(host:host pid:20391)] Job TestJob [728919de-bfcc-49bf-94e9-72d6a26faca6] from DelayedJob(default) with arguments: ["🤷"] (id=33) (queue=default) COMPLETED after 0.0104
-[Worker(host:host pid:20391)] 1 jobs processed at 56.9282 j/s, 0 failed
-[Worker(host:host pid:20391)] Job TestJob [728919de-bfcc-49bf-94e9-72d6a26faca6] from DelayedJob(default) with arguments: ["🤷"] (id=34) (queue=default) RUNNING
+[Worker(host:host pid:22060)] Starting job worker
+[Worker(host:host pid:22060)] Job TestJob [729423de-c794-42bc-8f3d-bcc343cc432b] from DelayedJob(default) with arguments: ["🤷"] (id=36) (queue=default) RUNNING
+[Worker(host:host pid:22060)] Job TestJob [729423de-c794-42bc-8f3d-bcc343cc432b] from DelayedJob(default) with arguments: ["🤷"] (id=36) (queue=default) COMPLETED after 0.0162
+[Worker(host:host pid:22060)] 1 jobs processed at 28.3455 j/s, 0 failed
+[Worker(host:host pid:22060)] Job TestJob [729423de-c794-42bc-8f3d-bcc343cc432b] from DelayedJob(default) with arguments: ["\xF0\x9F\xA4\xB7"] (id=37) (queue=default) RUNNING
+[Worker(host:host pid:22060)] Job TestJob [729423de-c794-42bc-8f3d-bcc343cc432b] from DelayedJob(default) with arguments: ["\xF0\x9F\xA4\xB7"] (id=37) (queue=default) COMPLETED after 0.0110
+[Worker(host:host pid:22060)] 1 jobs processed at 54.9330 j/s, 0 failed
+[Worker(host:host pid:22060)] Job TestJob [729423de-c794-42bc-8f3d-bcc343cc432b] from DelayedJob(default) with arguments: ["\xF0\x9F\xA4\xB7"] (id=38) (queue=default) RUNNING
+[Worker(host:host pid:22060)] Job TestJob [729423de-c794-42bc-8f3d-bcc343cc432b] from DelayedJob(default) with arguments: ["\xF0\x9F\xA4\xB7"] (id=38) (queue=default) COMPLETED after 0.0102
+[Worker(host:host pid:22060)] 1 jobs processed at 57.8369 j/s, 0 failed
+[Worker(host:host pid:22060)] Job TestJob [729423de-c794-42bc-8f3d-bcc343cc432b] from DelayedJob(default) with arguments: ["\xF0\x9F\xA4\xB7"] (id=39) (queue=default) RUNNING
+[Worker(host:host pid:22060)] Job TestJob [729423de-c794-42bc-8f3d-bcc343cc432b] from DelayedJob(default) with arguments: ["\xF0\x9F\xA4\xB7"] (id=39) (queue=default) COMPLETED after 0.0101
+[Worker(host:host pid:22060)] 1 jobs processed at 57.6901 j/s, 0 failed
+[Worker(host:host pid:22060)] Job TestJob [729423de-c794-42bc-8f3d-bcc343cc432b] from DelayedJob(default) with arguments: ["\xF0\x9F\xA4\xB7"] (id=40) (queue=default) RUNNING
+[Worker(host:host pid:22060)] Job TestJob [729423de-c794-42bc-8f3d-bcc343cc432b] from DelayedJob(default) with arguments: ["\xF0\x9F\xA4\xB7"] (id=40) (queue=default) FAILED (0 prior attempts) with RuntimeError: 🤷
 rails aborted!
-Encoding::CompatibilityError: incompatible character encodings: UTF-8 and ASCII-8BIT
-$HOME/.gem/ruby/3.1.0/gems/delayed_job-4.1.10/lib/delayed/worker.rb:273:in `job_say'
-$HOME/.gem/ruby/3.1.0/gems/delayed_job-4.1.10/lib/delayed/worker.rb:304:in `handle_failed_job'
+Encoding::UndefinedConversionError: "\xF0" from ASCII-8BIT to UTF-8
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/connection_adapters/sqlite3/quoting.rb:67:in `encode'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/connection_adapters/sqlite3/quoting.rb:67:in `type_cast'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/connection_adapters/abstract/quoting.rb:209:in `block in type_casted_binds'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/connection_adapters/abstract/quoting.rb:207:in `map'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/connection_adapters/abstract/quoting.rb:207:in `type_casted_binds'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/connection_adapters/sqlite3/database_statements.rb:44:in `exec_query'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/connection_adapters/sqlite3/database_statements.rb:74:in `exec_delete'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:175:in `update'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:22:in `update'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/persistence.rb:513:in `_update_record'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/persistence.rb:1082:in `_update_row'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/locking/optimistic.rb:88:in `_update_row'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/persistence.rb:1104:in `_update_record'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/attribute_methods/dirty.rb:216:in `_update_record'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/callbacks.rb:465:in `block in _update_record'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activesupport/lib/active_support/callbacks.rb:99:in `run_callbacks'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activesupport/lib/active_support/callbacks.rb:929:in `_run_update_callbacks'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/callbacks.rb:465:in `_update_record'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/timestamp.rb:121:in `_update_record'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/persistence.rb:1091:in `create_or_update'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/callbacks.rb:457:in `block in create_or_update'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activesupport/lib/active_support/callbacks.rb:107:in `run_callbacks'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activesupport/lib/active_support/callbacks.rb:929:in `_run_save_callbacks'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/callbacks.rb:457:in `create_or_update'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/timestamp.rb:126:in `create_or_update'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/persistence.rb:648:in `save!'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/validations.rb:55:in `save!'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/transactions.rb:304:in `block in save!'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/transactions.rb:356:in `block in with_transaction_returning_status'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/connection_adapters/abstract/transaction.rb:457:in `block in within_new_transaction'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activesupport/lib/active_support/concurrency/load_interlock_aware_monitor.rb:25:in `handle_interrupt'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activesupport/lib/active_support/concurrency/load_interlock_aware_monitor.rb:25:in `block in synchronize'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activesupport/lib/active_support/concurrency/load_interlock_aware_monitor.rb:21:in `handle_interrupt'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activesupport/lib/active_support/concurrency/load_interlock_aware_monitor.rb:21:in `synchronize'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/connection_adapters/abstract/transaction.rb:455:in `within_new_transaction'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:316:in `transaction'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/transactions.rb:352:in `with_transaction_returning_status'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/transactions.rb:304:in `save!'
+$HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activerecord/lib/active_record/suppressor.rb:54:in `save!'
+$HOME/.gem/ruby/3.1.0/gems/delayed_job-4.1.10/lib/delayed/worker.rb:252:in `reschedule'
+$HOME/.gem/ruby/3.1.0/gems/delayed_job-4.1.10/lib/delayed/worker.rb:305:in `handle_failed_job'
 $HOME/.gem/ruby/3.1.0/gems/delayed_job-4.1.10/lib/delayed/worker.rb:241:in `block in run'
 $HOME/.gem/ruby/3.1.0/gems/delayed_job-4.1.10/lib/delayed/lifecycle.rb:61:in `block in initialize'
 $HOME/.gem/ruby/3.1.0/gems/delayed_job-4.1.10/lib/delayed/lifecycle.rb:66:in `execute'
@@ -91,7 +131,7 @@ bin/rails:4:in `<main>'
 
 Caused by:
 🤷
-$HOME/tmp/activejobtest/app/jobs/test_job.rb:3:in `perform'
+$HOME/tmp/activejobtest/app/jobs/test_job.rb:5:in `perform'
 $HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activejob/lib/active_job/execution.rb:59:in `block in _perform_job'
 $HOME/.gem/ruby/3.1.0/bundler/gems/rails-7669a4a9757b/activesupport/lib/active_support/callbacks.rb:118:in `block in run_callbacks'
 $HOME/.gem/ruby/3.1.0/gems/i18n-1.10.0/lib/i18n.rb:328:in `with_locale'
